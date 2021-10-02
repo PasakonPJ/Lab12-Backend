@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import se331.lab.rest.entity.Organizer;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ public class User {
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @OneToOne
+    Organizer organizer;
 
 
     @Column(name = "USERNAME", length = 50, unique = true)
