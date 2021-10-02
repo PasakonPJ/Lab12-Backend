@@ -14,6 +14,6 @@ import java.util.List;
 public class OrganizerAuthDTO {
     Long id;
     String name;
-    List<AuthorityDTO> authorities;
+    List<String> authorities;
 
 }
