@@ -57,13 +57,20 @@ public class AuthenticationRestController {
         Authority authUser = Authority.builder().name(AuthorityName.ROLE_USER).build();
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         authorityRepository.save(authUser);
+        Organizer organizer = organizerRepository.save(Organizer.builder().name(user.getUsername()).id(Long.parseLong(String.valueOf(organizerRepository.findAll().size() + 1))).build());
+        organizer.setUser(user);
         user.setEnabled(true);
         user.setPassword(encoder.encode(user.getPassword()));
         user.getAuthorities().add(authUser);
-        user.setOrganizer(organizerRepository.getById(1L));
-        User output = userRepository.save(user);
+        user.setOrganizer(organizer);
 
-        return ResponseEntity.ok(output);
+
+        Map result = new HashMap();
+        User output = userRepository.save(user);
+        result.put("user",LabMapper.INSTANCE.getUserDTO(output));
+        result.put("Organizer",  LabMapper.INSTANCE.getOrganizerAuthDTO(user.getOrganizer()));
+
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("${jwt.route.authentication.path}")

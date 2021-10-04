@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Builder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -15,5 +16,6 @@ public class OrganizerAuthDTO {
     Long id;
     String name;
     List<String> authorities;
+//    List<OrganizerOwnEventsDTO> ownEvents = new ArrayList<>();
 
 }
